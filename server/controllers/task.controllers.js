@@ -14,7 +14,7 @@ export const getTask = async (req, res) => {
 
 //* ----------------- GET ALL TASKS -------------------------
 export const getTasks = async (req, res) => {
-  const [result] = await pool.query("SELECT * FROM tasks ORDER BY ASC");
+  const [result] = await pool.query("SELECT * FROM tasks ORDER BY title ASC");
   res.json(result);
 };
 
