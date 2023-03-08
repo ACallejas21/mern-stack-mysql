@@ -40,7 +40,6 @@ export const createTask = async (req, res) => {
       title,
       description,
     });
-    res.send("creando Tareas");
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
