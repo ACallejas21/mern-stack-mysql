@@ -1,25 +1,29 @@
-import { useEffect, useState} from "react";
-import { GetTaskRequest } from "../api/task.api";
+import { useEffect} from "react";
 import TaskCard from "../components/TaskCard";
+import { useTask } from "../context/TaskProvider";
 
 function TaskPage() {
 
-  const [task, setTask] = useState([])
+  const {task, LoadTask} = useTask()
 
   useEffect(() => {
-    async function LoadTask() {
-      const response = await GetTaskRequest();
-      console.log(response);
-      setTask(response.data);
-    }
     LoadTask()
   }, []);
 
+  function renderMain(){
+
+    if (task.length === 0 ) {
+      return <h1>NOT TASK YET</h1>
+    }
+
+    return task.map(task => (
+      <TaskCard task={task} key={task.id}></TaskCard>
+    ))
+  }
+
   return (<div>
     <h1>Tasks</h1>
-    {task.map(task => (
-      <TaskCard task={task} key={task.id}></TaskCard>
-    ))}
+    {renderMain()}
   </div>);
 }
 
